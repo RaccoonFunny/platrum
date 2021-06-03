@@ -1,28 +1,51 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <v-app>
+      <v-row align-content="center" justify="center">
+        <v-card>
+          <v-btn
+              color="primary"
+              block
+              @click="addForm = !addForm"
+          >
+            {{btnMessage}}
+          </v-btn>
+          <List :key="rerenderList"/>
+        </v-card>
+        <Form v-if="addForm" @rerenderList="rerenderList = !rerenderList"/>
+      </v-row>
+    </v-app>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import List from "@/components/List";
+import Form from "@/components/Form";
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
-  }
-}
+    Form,
+    List
+  },
+
+  computed: {
+    btnMessage: function (){
+      return this.addForm ? "закрыть" : "добавить";
+    }
+  },
+
+  data: () => ({
+    rerenderList: 0,
+    addForm: false,
+  }),
+
+
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+
 </style>
